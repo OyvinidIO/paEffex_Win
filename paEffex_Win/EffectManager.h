@@ -9,7 +9,8 @@ class EffectManager
 public:	
 	EffectManager();
 	void setEffect(IGuitarEffect* effect);
-	int applyEffect(const double* iData, double* oData, unsigned int bufferSize);
+	//int applyEffect(const double* iData, double* oData, int bufferSize);
+	int applyEffect(const int* iData, int* oData, int bufferSize);
 	void changeEffectParameters(void * userdata);
 	void deallocateEffects();
 	~EffectManager();

@@ -14,21 +14,21 @@ void EffectManager::setEffect(IGuitarEffect* effect) {
 	effects_.emplace_back(effect);
 }
 
-int EffectManager::applyEffect(const double* iData, double* oData, unsigned int bufferSize) {
+//int EffectManager::applyEffect(const double* iData, double* oData, int bufferSize) {
+int EffectManager::applyEffect(const int* iData, int* oData, int bufferSize) {
+	double sample;	
+	int j = 0;
 	
-	double sample;
 	for (int i = 0; i < bufferSize; i++) {
-		sample = *iData++;
-		*oData++ = sample;
-		//*oData++ = sample;
-		/*oData[i] = sample;
-		oData[i+bufferSize] = sample;*/
-	}	
-
-	// Apply effects
-	//for (auto& element : effects_) element->applyEffect(oData, oData, bufferSize);
+		oData[j]   = iData[j];
+		oData[j+1] = iData[j+1];;
+		j += 2;
+	}
 	
-	//// Log I/O	
+	// Apply effects
+	for (auto& element : effects_) element->applyEffect(oData, oData, bufferSize);
+	
+	//// Log I/O
 	//if (!streamStarted_) {
 	//	streamStarted_ = true;
 	//	cout << "Opening file for recording..." << endl;
