@@ -18,15 +18,24 @@ int EffectManager::applyEffect(const void* iData, void* oData, unsigned long buf
 	
 	const float* inputData = (const float*)iData;
 	float* outputData      = (float*)oData;
-
-	for (unsigned long i = 0; i < bufferSize; i++) {
-		*outputData++   = *inputData++;
-		*outputData++   = *inputData++;
+	unsigned long i = 0;
+	for ( i = 0; i < 2*bufferSize; i+=2) {
+		outputData[i]   = inputData[i];
+		outputData[i+1] = inputData[i+1];
+		//outputData[i+2] = inputData[i+2];
+		//outputData[i+3] = inputData[i+3];
+		//outputData[i+4] = inputData[i+4];
+		//outputData[i+5] = inputData[i+5];
+		//outputData[i+6] = inputData[i+6];
+		//outputData[i+7] = inputData[i+7];
+		
+		/**outputData++   = *inputData++;
+		*outputData++   = *inputData++;*/
 		
 	}
-	
+	//cout << "BUFFERSIZE: " << bufferSize << ", i: " << i << endl;
 	// Apply effects
-	//for (auto& element : effects_) element->applyEffect(oData, oData, bufferSize);
+	for (auto& element : effects_) element->applyEffect(outputData, outputData, bufferSize);
 	
 	//// Log I/O
 	//if (!streamStarted_) {

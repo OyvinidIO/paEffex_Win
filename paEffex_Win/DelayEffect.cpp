@@ -7,17 +7,17 @@ using namespace std;
 DelayEffect::DelayEffect() {
 	
 	
-	dlyGain_ = 0.5; // default gain
+	dlyGain_ = 0.25; // default gain
 	dlyTime_ = 400.0; // default delay
 	sampleRate_ = 44100;  // default sample rate
 	sample_cntr_ = 0;	  // buffer counter
 	dlySamples_ = floor((dlyTime_ / 1000) * sampleRate_); // Number of samples in delay time
 	dlyBufferSize_ = 2 * sampleRate_;
 	
-	dlyBuffer_ = new int[88200]; // Internal Delay buffer
+	dlyBuffer_ = new float[88200]; // Internal Delay buffer
 		
 	// Initialize buffer
-	for (int i = 0; i < dlyBufferSize_; i++)
+	for (unsigned long i = 0; i < dlyBufferSize_; i++)
 	{
 		dlyBuffer_[i] = 0; 
 	}
@@ -68,7 +68,7 @@ int DelayEffect::changeEffectParameters(void * userdata) {
 }
 
 
-int DelayEffect::applyEffect(int * iData, int* oData, int bufferSize)
+int DelayEffect::applyEffect(float * iData, float* oData, unsigned long bufferSize)
 {	
 	// Skip effect if disabled
 	//if (!enableEffect_) return 0;
@@ -77,28 +77,32 @@ int DelayEffect::applyEffect(int * iData, int* oData, int bufferSize)
 	// Add delay out(n) = in(n) + gain*out(n-m), where m = delaytime in samples
 	// If n-m < 0, go to end of buffer to find delay sample
 	
-	int dlypos; // position of delayed signal in delay buffer	
-	int currpos; // real time position in delay buffer
-	int sample;
-	int delaysignal;
-	int j = 0;
-	
-	for (int i = 0; i < bufferSize; i++){
+	long dlypos; // position of delayed signal in delay buffer	
+	unsigned long currpos; // real time position in delay buffer
+	unsigned long sample;
+	float delaysignal;
+	unsigned long channels = 2;
+	unsigned long dlyIterator = 0;
+
+	for (unsigned long i = 0; i < channels*bufferSize; i+= channels){
 		
-		currpos = bufferSize*sample_cntr_ + i;
+		currpos = bufferSize*sample_cntr_ + dlyIterator;
 		dlypos= currpos - dlySamples_;
 		if (dlypos< 0){			
 			// Index less than zero, go to end of buffer to find older samples.
 			dlypos= dlyBufferSize_ + currpos - dlySamples_;
 		}
+		dlyIterator++;
 
+		/*if (i % 10) {
+			cout << ", i: " << i << ", Buffer iterator: " << dlyIterator << ", Currpos: " << currpos << " / " << "88200" << ", delaypos :" << dlypos << ", dlysamples: " << dlySamples_ << endl;
+		}*/
 		// Update delay buffer. Load oData to delaybuffer to replace the oldest data in buffer.		
-		delaysignal = (int)(dlyGain_*dlyBuffer_[dlypos]);
-		oData[j]   = iData[j]   + delaysignal;
-		oData[j+1] = iData[j+1] + delaysignal;
-		dlyBuffer_[currpos] = oData[j];
+		delaysignal = dlyGain_*dlyBuffer_[dlypos];
+		oData[i]   = iData[i]   + delaysignal;
+		oData[i+1] = iData[i+1] + delaysignal;
+		dlyBuffer_[currpos] = oData[i];
 		
-		j += 2;		
 	}
 	
 	//Increment buffer counter
@@ -123,11 +127,11 @@ void DelayEffect::set_dlyTime_(double dlyTime)
 	dlyTime_ = dlyTime;
 }
 
-int DelayEffect::get_gain_()
+unsigned long DelayEffect::get_gain_()
 {
 	return dlyGain_;
 }
-int DelayEffect::get_dlyTime_()
+unsigned long  DelayEffect::get_dlyTime_()
 {
 	return dlyTime_;
 }
