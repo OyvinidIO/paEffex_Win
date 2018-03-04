@@ -14,19 +14,19 @@ void EffectManager::setEffect(IGuitarEffect* effect) {
 	effects_.emplace_back(effect);
 }
 
-//int EffectManager::applyEffect(const double* iData, double* oData, int bufferSize) {
-int EffectManager::applyEffect(const int* iData, int* oData, int bufferSize) {
-	double sample;	
-	int j = 0;
+int EffectManager::applyEffect(const void* iData, void* oData, unsigned long bufferSize) {
 	
-	for (int i = 0; i < bufferSize; i++) {
-		oData[j]   = iData[j];
-		oData[j+1] = iData[j+1];;
-		j += 2;
+	const float* inputData = (const float*)iData;
+	float* outputData      = (float*)oData;
+
+	for (unsigned long i = 0; i < bufferSize; i++) {
+		*outputData++   = *inputData++;
+		*outputData++   = *inputData++;
+		
 	}
 	
 	// Apply effects
-	for (auto& element : effects_) element->applyEffect(oData, oData, bufferSize);
+	//for (auto& element : effects_) element->applyEffect(oData, oData, bufferSize);
 	
 	//// Log I/O
 	//if (!streamStarted_) {
