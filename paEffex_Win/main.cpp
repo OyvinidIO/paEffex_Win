@@ -65,8 +65,8 @@ int main(void) {
 	inputInfo = Pa_GetDeviceInfo(inputParameters.device);
 	outputInfo = Pa_GetDeviceInfo(outputParameters.device);
 
-	inputParameters.channelCount =   inputInfo->maxInputChannels;
-	outputParameters.channelCount = outputInfo->maxOutputChannels;
+	inputParameters.channelCount = 2;//  inputInfo->maxInputChannels;
+	outputParameters.channelCount = 2;//outputInfo->maxOutputChannels;
 	inputParameters.sampleFormat = paFloat32; /*+paNonInterleaved;*/
 	outputParameters.sampleFormat = paFloat32; /*+paNonInterleaved;*/
 	inputParameters.suggestedLatency = inputInfo->defaultLowInputLatency;
