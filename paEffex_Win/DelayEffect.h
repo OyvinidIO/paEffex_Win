@@ -1,7 +1,6 @@
 #pragma once
 #include "IGuitarEffect.h"
-class DelayEffect :
-	public IGuitarEffect
+class DelayEffect :	public IGuitarEffect
 {
 public:
 	DelayEffect();

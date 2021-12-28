@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ChorusEffect.h" />
     <ClInclude Include="DelayEffect.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="IGuitarEffect.h" />
@@ -139,6 +140,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChorusEffect.cpp" />
     <ClCompile Include="DelayEffect.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="IGuitarEffect.cpp" />

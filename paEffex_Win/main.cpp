@@ -5,6 +5,7 @@
 #include <string>
 
 #include "DelayEffect.h"
+#include "ChorusEffect.h"
 //#include "MsgStruct.h"
 
 using namespace std;
@@ -110,6 +111,7 @@ int main(void) {
 	
 	/* Create Effects */
 	effectManager.setEffect(new DelayEffect());
+	effectManager.setEffect(new ChorusEffect());
 
 	/* Open an audio I/O stream. */
 	cout << " -- Opening stream -- " << endl;
