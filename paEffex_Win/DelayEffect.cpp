@@ -50,8 +50,8 @@ int DelayEffect::changeEffectParameters(void * userdata) {
 	else if(msg->body_.params[0] < 0) {
 		dlyTime_ = 0;
 	}
-	else if (msg->body_.params[0] > dlyBufferSize_ / sampleRate_ * 1000) {
-		dlyTime_ = dlyBufferSize_ / sampleRate_ * 1000;
+	else if (msg->body_.params[0] > dlyBufferSize_ / sampleRate_ * 1000l) {
+		dlyTime_ = dlyBufferSize_ / sampleRate_ * 1000l;
 	}
 	
 	// # PARAM 2 # Delay gain. 

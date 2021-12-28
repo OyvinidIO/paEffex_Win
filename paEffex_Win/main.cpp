@@ -79,7 +79,7 @@ int main(void) {
 	// Show I/O paramteres	
 	ApiIndex = Pa_GetDefaultHostApi();
 	HostApiInfo = Pa_GetHostApiInfo(ApiIndex);
-	cout << "INPUT parameters---------" << endl;
+	/*cout << "INPUT parameters---------" << endl;
 	cout << "     input DevID:        " << inputParameters.device << endl;
 	cout << "     Name:               " << inputInfo->name << endl;
 	cout << "     LL:                 " << inputInfo->defaultLowInputLatency << endl;
@@ -100,7 +100,12 @@ int main(void) {
 	cout << "      Device count:      " << HostApiInfo->deviceCount << endl;
 	cout << "      Name:              " << HostApiInfo->name << endl;
 	cout << "      Struct ver:        " << HostApiInfo->structVersion << endl;
-	cout << "      Type:              " << HostApiInfo->type << endl;
+	cout << "      Type:              " << HostApiInfo->type << endl;*/
+
+
+	
+	// Example show ASIO panel
+	//PaAsio_ShowControlPanel(inputParameters.device, nullptr);
 	/*----------------------------------------------------------------------------------*/
 	
 	/* Create Effects */

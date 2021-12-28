@@ -242,3 +242,4 @@ ModelManifest.xml
 .fake/
 *.filters
 *.vcxproj
+enc_temp_folder/
